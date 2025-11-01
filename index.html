@@ -1,10 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENZOROBPT - Trasforma il Tuo Corpo, Potenzia la Tua Vita</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <title>ENZOROBPT - Personal Trainer | Trasforma il Tuo Corpo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #d4af37; /* Oro */
@@ -13,13 +20,20 @@
             --light: #1a1a1a; /* Nero chiaro */
             --dark: #0d0d0d; /* Nero scuro */
             --text: #ffffff; /* Testo bianco */
+            --safe-area-inset-top: env(safe-area-inset-top);
+            --safe-area-inset-bottom: env(safe-area-inset-bottom);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
@@ -27,6 +41,9 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            padding-top: var(--safe-area-inset-top);
+            padding-bottom: var(--safe-area-inset-bottom);
         }
         
         .container {
@@ -36,7 +53,15 @@
             padding: 0 20px;
         }
         
-        /* Animazioni di sfondo */
+        /* iOS & Android Optimizations */
+        @supports(padding: max(0px)) {
+            .container {
+                padding-left: max(20px, env(safe-area-inset-left));
+                padding-right: max(20px, env(safe-area-inset-right));
+            }
+        }
+        
+        /* Animazioni di sfondo - Ottimizzate per mobile */
         .background-elements {
             position: fixed;
             top: 0;
@@ -45,97 +70,32 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
+            pointer-events: none;
         }
         
         .bg-element {
             position: absolute;
-            opacity: 0.1;
+            opacity: 0.05;
         }
         
-        .dumbbell {
-            width: 80px;
-            height: 20px;
-            background: var(--primary);
-            border-radius: 10px;
-            animation: float 15s infinite linear;
+        .dumbbell, .barbell, .muscle {
+            display: none; /* Disabilitati su mobile per performance */
         }
         
-        .dumbbell:before, .dumbbell:after {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: var(--primary);
-            border-radius: 50%;
-            top: -5px;
-        }
-        
-        .dumbbell:before {
-            left: -15px;
-        }
-        
-        .dumbbell:after {
-            right: -15px;
-        }
-        
-        .barbell {
-            width: 120px;
-            height: 10px;
-            background: var(--accent);
-            animation: float 20s infinite linear reverse;
-        }
-        
-        .barbell:before, .barbell:after {
-            content: '';
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            background: var(--accent);
-            border-radius: 50%;
-            top: -7.5px;
-        }
-        
-        .barbell:before {
-            left: -12.5px;
-        }
-        
-        .barbell:after {
-            right: -12.5px;
-        }
-        
-        .muscle {
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
-            border-radius: 50%;
-            clip-path: polygon(0% 0%, 100% 0%, 80% 100%, 20% 100%);
-            animation: pulse 8s infinite ease-in-out;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); }
-            25% { transform: translateY(-20px) translateX(20px) rotate(90deg); }
-            50% { transform: translateY(0) translateX(40px) rotate(180deg); }
-            75% { transform: translateY(20px) translateX(20px) rotate(270deg); }
-            100% { transform: translateY(0) translateX(0) rotate(360deg); }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.1; }
-            50% { transform: scale(1.2); opacity: 0.15; }
-            100% { transform: scale(1); opacity: 0.1; }
-        }
-        
-        /* Header Styles */
+        /* Header Mobile Optimized */
         header {
-            background-color: rgba(13, 13, 13, 0.9);
+            background-color: rgba(13, 13, 13, 0.95);
             color: var(--text);
-            padding: 20px 0;
-            position: sticky;
+            padding: 15px 0;
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
             z-index: 1000;
             box-shadow: 0 2px 20px rgba(212, 175, 55, 0.3);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding-top: calc(15px + var(--safe-area-inset-top));
         }
         
         .header-content {
@@ -147,216 +107,209 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
         
         .logo-icon {
-            width: 60px;
-            height: 60px;
+            width: 45px;
+            height: 45px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 28px;
+            font-size: 20px;
             color: var(--secondary);
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .logo-icon:after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: translateX(-100%);
-            animation: shine 3s infinite;
-        }
-        
-        @keyframes shine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
         }
         
         .logo-text {
-            font-size: 28px;
+            font-size: 20px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         
         .logo-text span {
             color: var(--primary);
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: var(--dark);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            padding-top: 80px;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+        }
+        
+        nav.active {
+            right: 0;
         }
         
         nav ul {
-            display: flex;
             list-style: none;
-            gap: 30px;
+            padding: 0 20px;
+        }
+        
+        nav li {
+            margin-bottom: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         
         nav a {
+            display: block;
             color: var(--text);
             text-decoration: none;
             font-weight: 600;
+            padding: 18px 15px;
             transition: all 0.3s;
-            position: relative;
-            padding: 5px 0;
+            font-size: 18px;
         }
         
-        nav a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-        
-        nav a:hover {
+        nav a:hover, nav a:active {
             color: var(--primary);
-        }
-        
-        nav a:hover:after {
-            width: 100%;
+            background: rgba(212, 175, 55, 0.1);
         }
         
         .mobile-menu-btn {
-            display: none;
+            display: block;
             background: none;
             border: none;
             color: var(--text);
             font-size: 24px;
             cursor: pointer;
+            z-index: 1002;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(13, 13, 13, 0.85), rgba(13, 13, 13, 0.9)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--text);
-            padding: 150px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero:before {
-            content: '';
+        .close-menu {
             position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-overlay {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, var(--secondary) 100%);
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            display: none;
+        }
+        
+        .nav-overlay.active {
+            display: block;
+        }
+        
+        /* Hero Section Mobile Optimized */
+        .hero {
+            background: linear-gradient(rgba(13, 13, 13, 0.9), rgba(13, 13, 13, 0.95)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--text);
+            padding: 140px 0 80px;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
         
         .hero-content {
-            max-width: 900px;
+            max-width: 100%;
             margin: 0 auto;
             position: relative;
             z-index: 1;
         }
         
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 25px;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-            animation: fadeInUp 1s ease;
+            line-height: 1.2;
         }
         
         .hero h1 span {
             color: var(--primary);
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
         }
         
         .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 35px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            animation: fadeInUp 1s ease 0.2s forwards;
-            opacity: 0;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
         }
         
         .cta-text {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             color: var(--primary);
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-            animation: fadeInUp 1s ease 0.4s forwards;
-            opacity: 0;
         }
         
         .cta-button {
             display: inline-block;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             color: var(--secondary);
-            padding: 18px 35px;
+            padding: 16px 30px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.2rem;
-            transition: all 0.4s ease;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
             box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 1s ease 0.6s forwards;
-            opacity: 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin: 10px 0;
+            min-width: 260px;
+            border: none;
+            cursor: pointer;
         }
         
-        .cta-button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: 0.5s;
+        .cta-button:active {
+            transform: scale(0.98);
         }
         
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.7);
-        }
-        
-        .cta-button:hover:before {
-            left: 100%;
-        }
-        
-        /* Sections */
+        /* Sections Mobile Optimized */
         section {
-            padding: 100px 0;
+            padding: 70px 0;
             position: relative;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 70px;
+            margin-bottom: 50px;
             position: relative;
         }
         
         .section-title h2 {
-            font-size: 2.8rem;
+            font-size: 2rem;
             color: var(--primary);
             display: inline-block;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             position: relative;
             padding-bottom: 15px;
         }
@@ -364,19 +317,18 @@
         .section-title h2:after {
             content: '';
             display: block;
-            width: 100px;
+            width: 80px;
             height: 4px;
             background: var(--accent);
             margin: 15px auto;
             border-radius: 2px;
-            box-shadow: 0 0 10px rgba(196, 30, 58, 0.5);
         }
         
-        /* Programs Section */
+        /* Programs Section Mobile Optimized */
         .programs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
+            grid-template-columns: 1fr;
+            gap: 25px;
         }
         
         .program-card {
@@ -384,15 +336,13 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             position: relative;
             border: 1px solid rgba(212, 175, 55, 0.2);
         }
         
-        .program-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
-            border-color: var(--primary);
+        .program-card:active {
+            transform: scale(0.98);
         }
         
         .program-card:before {
@@ -408,41 +358,30 @@
         .program-icon {
             background: linear-gradient(135deg, var(--primary), var(--accent));
             color: var(--secondary);
-            height: 100px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: 2rem;
             position: relative;
-            overflow: hidden;
-        }
-        
-        .program-icon:after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: translateX(-100%);
-            animation: shine 3s infinite;
         }
         
         .program-content {
-            padding: 30px;
+            padding: 25px;
         }
         
         .program-content h3 {
             color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 1.7rem;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         
         .program-content p {
             color: #cccccc;
-            margin-bottom: 25px;
-            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-size: 1rem;
         }
         
         .program-button {
@@ -456,54 +395,46 @@
             transition: all 0.3s;
             border: 2px solid var(--primary);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            width: 100%;
+            text-align: center;
         }
         
-        .program-button:hover {
+        .program-button:active {
             background: var(--primary);
             color: var(--secondary);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
         }
         
-        /* Transformations Section */
+        /* Transformations Section Mobile Optimized */
         .transformations {
-            background: linear-gradient(rgba(13, 13, 13, 0.9), rgba(13, 13, 13, 0.9)), url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background: linear-gradient(rgba(13, 13, 13, 0.9), rgba(13, 13, 13, 0.9));
         }
         
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: 1fr;
+            gap: 20px;
         }
         
         .gallery-item {
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
-            height: 300px;
+            height: 280px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             border: 2px solid transparent;
         }
         
-        .gallery-item:hover {
-            transform: scale(1.05);
-            border-color: var(--primary);
-            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
+        .gallery-item:active {
+            transform: scale(0.98);
         }
         
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .gallery-item:hover img {
-            transform: scale(1.1);
         }
         
         .video-container {
@@ -525,22 +456,16 @@
             transform: translate(-50%, -50%);
             width: 60px;
             height: 60px;
-            background: rgba(212, 175, 55, 0.8);
+            background: rgba(212, 175, 55, 0.9);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--secondary);
-            font-size: 24px;
-            transition: all 0.3s ease;
+            font-size: 20px;
             z-index: 2;
             cursor: pointer;
             border: none;
-        }
-        
-        .video-play-btn:hover {
-            background: var(--primary);
-            transform: translate(-50%, -50%) scale(1.1);
         }
         
         .gallery-overlay {
@@ -550,31 +475,25 @@
             right: 0;
             background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
             color: white;
-            padding: 25px;
-            transform: translateY(100%);
-            transition: transform 0.4s ease;
-        }
-        
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
+            padding: 20px;
         }
         
         .gallery-overlay h3 {
             color: var(--primary);
             margin-bottom: 5px;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
         
         .gallery-overlay p {
             color: #cccccc;
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
         
-        /* Footer */
+        /* Footer Mobile Optimized */
         footer {
             background-color: var(--dark);
             color: var(--text);
-            padding: 70px 0 20px;
+            padding: 50px 0 20px;
             position: relative;
         }
         
@@ -589,26 +508,20 @@
         }
         
         .footer-content {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 50px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-column {
-            flex: 1;
-            min-width: 250px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
         }
         
         .footer-column h3 {
-            margin-bottom: 25px;
-            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
             position: relative;
             padding-bottom: 10px;
             color: var(--primary);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         
         .footer-column h3:after {
@@ -616,145 +529,171 @@
             position: absolute;
             left: 0;
             bottom: 0;
-            width: 50px;
+            width: 40px;
             height: 3px;
             background: var(--accent);
         }
         
         .footer-column p {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: #cccccc;
+            font-size: 0.95rem;
         }
         
         .map-link {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             color: var(--primary);
             text-decoration: none;
             font-weight: 600;
             margin-top: 10px;
-            padding: 8px 15px;
+            padding: 10px 15px;
             border: 1px solid var(--primary);
             border-radius: 5px;
             transition: all 0.3s ease;
+            font-size: 0.95rem;
         }
         
-        .map-link:hover {
+        .map-link:active {
             background: var(--primary);
             color: var(--secondary);
         }
         
         .social-links {
             display: flex;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 12px;
+            margin-top: 20px;
         }
         
         .social-link {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
+            width: 44px;
+            height: 44px;
             background-color: rgba(212, 175, 55, 0.1);
             border-radius: 50%;
             color: var(--primary);
             text-decoration: none;
             transition: all 0.3s ease;
             border: 1px solid rgba(212, 175, 55, 0.3);
+            font-size: 1.1rem;
         }
         
-        .social-link:hover {
+        .social-link:active {
             background-color: var(--primary);
             color: var(--secondary);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            transform: scale(0.95);
         }
         
         .copyright {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #cccccc;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
         
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+            z-index: 999;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
         
-        .fade-in {
-            animation: fadeInUp 1s ease forwards;
+        .whatsapp-float:active {
+            transform: scale(0.9);
         }
         
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            nav ul {
-                flex-direction: column;
-                text-align: center;
-                gap: 15px;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
+        /* Tablet Styles */
+        @media (min-width: 768px) {
             .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2.2rem;
+                font-size: 2.8rem;
             }
             
             .programs-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero {
-                padding: 100px 0;
+                grid-template-columns: repeat(2, 1fr);
             }
             
-            section {
-                padding: 70px 0;
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .footer-content {
-                flex-direction: column;
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 1024px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            nav {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                padding: 0;
+                box-shadow: none;
+            }
+            
+            nav ul {
+                display: flex;
+                padding: 0;
+            }
+            
+            nav li {
+                margin-bottom: 0;
+                border-bottom: none;
+            }
+            
+            nav a {
+                padding: 10px 15px;
+                font-size: 16px;
             }
             
             .hero h1 {
-                font-size: 2rem;
+                font-size: 3.5rem;
+            }
+            
+            .programs-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* High DPI Screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .hero {
+                background-image: linear-gradient(rgba(13, 13, 13, 0.9), rgba(13, 13, 13, 0.95)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80');
             }
         }
     </style>
 </head>
 <body>
-    <!-- Elementi di sfondo animati -->
-    <div class="background-elements">
-        <div class="bg-element dumbbell" style="top: 10%; left: 5%;"></div>
-        <div class="bg-element barbell" style="top: 20%; left: 80%;"></div>
-        <div class="bg-element muscle" style="top: 40%; left: 15%;"></div>
-        <div class="bg-element dumbbell" style="top: 60%; left: 70%;"></div>
-        <div class="bg-element barbell" style="top: 80%; left: 10%;"></div>
-        <div class="bg-element muscle" style="top: 30%; left: 60%;"></div>
-        <div class="bg-element dumbbell" style="top: 70%; left: 85%;"></div>
-    </div>
-
     <!-- Header -->
     <header>
         <div class="container">
@@ -766,7 +705,10 @@
                 <button class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
                 </button>
-                <nav>
+                <nav id="main-nav">
+                    <button class="close-menu">
+                        <i class="fas fa-times"></i>
+                    </button>
                     <ul>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#programs">Programmi</a></li>
@@ -774,6 +716,7 @@
                         <li><a href="#contact">Contatti</a></li>
                     </ul>
                 </nav>
+                <div class="nav-overlay" id="nav-overlay"></div>
             </div>
         </div>
     </header>
@@ -799,33 +742,33 @@
                 <h2>I Miei Programmi</h2>
             </div>
             <div class="programs-grid">
-                <div class="program-card fade-in">
+                <div class="program-card">
                     <div class="program-icon">
                         <i class="fas fa-laptop"></i>
                     </div>
                     <div class="program-content">
                         <h3>Coaching Online</h3>
-                        <p>Programma di allenamento e nutrizione completamente personalizzato, con monitoraggio costante e supporto diretto via chat. Adatto a chi vuole risultati senza vincoli di orario.</p>
+                        <p>Programma di allenamento e nutrizione completamente personalizzato, con monitoraggio costante e supporto diretto via chat.</p>
                         <a href="https://wa.me/3471250632" class="program-button" target="_blank">Scopri di più</a>
                     </div>
                 </div>
-                <div class="program-card fade-in">
+                <div class="program-card">
                     <div class="program-icon">
                         <i class="fas fa-dumbbell"></i>
                     </div>
                     <div class="program-content">
                         <h3>One to One</h3>
-                        <p>Allenamento personalizzato in palestra con assistenza diretta. Massima attenzione alla tecnica e ai tuoi progressi. Per chi cerca risultati rapidi e supervisione costante.</p>
+                        <p>Allenamento personalizzato in palestra con assistenza diretta. Massima attenzione alla tecnica e ai tuoi progressi.</p>
                         <a href="https://wa.me/3471250632" class="program-button" target="_blank">Scopri di più</a>
                     </div>
                 </div>
-                <div class="program-card fade-in">
+                <div class="program-card">
                     <div class="program-icon">
                         <i class="fas fa-clipboard-list"></i>
                     </div>
                     <div class="program-content">
                         <h3>Programma Personalizzato</h3>
-                        <p>Creiamo insieme il piano di allenamento perfetto per le tue esigenze, obiettivi e stile di vita. Include schede di allenamento dettagliate e piano nutrizionale.</p>
+                        <p>Creiamo insieme il piano di allenamento perfetto per le tue esigenze, obiettivi e stile di vita.</p>
                         <a href="https://wa.me/3471250632" class="program-button" target="_blank">Scopri di più</a>
                     </div>
                 </div>
@@ -840,10 +783,8 @@
                 <h2>Trasformazioni</h2>
             </div>
             <div class="gallery">
-                <!-- VIDEO Giuseppe A. (placeholder - da sostituire) -->
-                <div class="gallery-item fade-in">
+                <div class="gallery-item">
                     <div class="video-container">
-                        <!-- SOSTITUIRE CON URL VIDEO REALE -->
                         <video poster="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" muted>
                             <source src="" type="video/mp4">
                             Il tuo browser non supporta il tag video.
@@ -854,32 +795,30 @@
                     </div>
                     <div class="gallery-overlay">
                         <h3>Giuseppe A. - 8 mesi</h3>
-                        <p>Trasformazione completa - +12kg massa muscolare</p>
+                        <p>Trasformazione completa</p>
                     </div>
                 </div>
                 
-                <!-- FOTO Giuseppe A. (placeholder - da sostituire) -->
-                <div class="gallery-item fade-in">
+                <div class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Trasformazione Giuseppe A.">
                     <div class="gallery-overlay">
                         <h3>Giuseppe A. - Prima/Dopo</h3>
-                        <p>8 mesi di allenamento personalizzato</p>
+                        <p>8 mesi di allenamento</p>
                     </div>
                 </div>
                 
-                <!-- Altre trasformazioni -->
-                <div class="gallery-item fade-in">
-                    <img src="https://images.unsplash.com/photo-1534367507877-0edd93bd013b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Trasformazione cliente 2">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1534367507877-0edd93bd013b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Trasformazione cliente">
                     <div class="gallery-overlay">
                         <h3>Laura - 4 mesi</h3>
-                        <p>-12kg, + definizione muscolare</p>
+                        <p>-12kg, + definizione</p>
                     </div>
                 </div>
-                <div class="gallery-item fade-in">
-                    <img src="https://images.unsplash.com/photo-1549060279-7e168fce7090?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Trasformazione cliente 4">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1549060279-7e168fce7090?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Trasformazione cliente">
                     <div class="gallery-overlay">
                         <h3>Chiara - 5 mesi</h3>
-                        <p>-15kg, + tonicità e forza</p>
+                        <p>-15kg, + tonicità</p>
                     </div>
                 </div>
             </div>
@@ -892,7 +831,7 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>ENZOROBPT</h3>
-                    <p>Personal Trainer certificato con anni di esperienza nel settore del fitness e del bodybuilding. Aiuto le persone a raggiungere i loro obiettivi fisici e a migliorare il loro stile di vita.</p>
+                    <p>Personal Trainer certificato con anni di esperienza nel settore del fitness e del bodybuilding.</p>
                     <div class="social-links">
                         <a href="https://instagram.com/ENZOROBPT" class="social-link" target="_blank">
                             <i class="fab fa-instagram"></i>
@@ -927,47 +866,41 @@
         </div>
     </footer>
 
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/3471250632" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <script>
-        // Animazione al caricamento e allo scroll
+        // Mobile Navigation
         document.addEventListener('DOMContentLoaded', function() {
-            const fadeElements = document.querySelectorAll('.fade-in');
-            
-            const fadeInOnScroll = function() {
-                fadeElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementVisible = 150;
-                    
-                    if (elementTop < window.innerHeight - elementVisible) {
-                        element.classList.add('fade-in');
-                    }
-                });
-            };
-            
-            // Check on load
-            fadeInOnScroll();
-            
-            // Check on scroll
-            window.addEventListener('scroll', fadeInOnScroll);
-            
-            // Mobile menu toggle
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const nav = document.querySelector('nav');
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
-            });
-            
-            // Close mobile menu when clicking on a link
+            const closeMenuBtn = document.querySelector('.close-menu');
+            const nav = document.getElementById('main-nav');
+            const navOverlay = document.getElementById('nav-overlay');
             const navLinks = document.querySelectorAll('nav a');
+            
+            function openMenu() {
+                nav.classList.add('active');
+                navOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeMenu() {
+                nav.classList.remove('active');
+                navOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            mobileMenuBtn.addEventListener('click', openMenu);
+            closeMenuBtn.addEventListener('click', closeMenu);
+            navOverlay.addEventListener('click', closeMenu);
+            
             navLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    if (window.innerWidth <= 768) {
-                        nav.style.display = 'none';
-                    }
-                });
+                link.addEventListener('click', closeMenu);
             });
             
-            // Video play functionality - CORRETTO
+            // Video play functionality
             const videoPlayBtns = document.querySelectorAll('.video-play-btn');
             videoPlayBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
@@ -985,32 +918,41 @@
                 });
             });
             
-            // Aggiungi elementi di sfondo dinamici
-            const backgroundElements = document.querySelector('.background-elements');
-            const elementTypes = ['dumbbell', 'barbell', 'muscle'];
+            // Prevent horizontal scroll on mobile
+            document.addEventListener('touchmove', function(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
             
-            for (let i = 0; i < 15; i++) {
-                const element = document.createElement('div');
-                const type = elementTypes[Math.floor(Math.random() * elementTypes.length)];
-                element.classList.add('bg-element', type);
-                
-                // Posizione casuale
-                const top = Math.random() * 100;
-                const left = Math.random() * 100;
-                
-                element.style.top = `${top}%`;
-                element.style.left = `${left}%`;
-                
-                // Animazione personalizzata
-                const duration = 15 + Math.random() * 20;
-                const delay = Math.random() * 10;
-                
-                element.style.animationDuration = `${duration}s`;
-                element.style.animationDelay = `${delay}s`;
-                
-                backgroundElements.appendChild(element);
+            // Improve performance on scroll
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        // Any scroll-based animations here
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        });
+        
+        // Prevent zoom on double tap (iOS)
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
             }
         });
+        
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(e) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
     </script>
 </body>
 </html>

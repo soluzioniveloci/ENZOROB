@@ -3,721 +3,698 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#000000">
-    <title>ENZOROBPT - Personal Trainer | Trasforma il Tuo Corpo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENZOROB PT - Trasforma il Tuo Corpo, Potenzia la Tua Mente</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #d4af37; /* Oro */
-            --secondary: #000000; /* Nero */
-            --accent: #c41e3a; /* Rosso intenso */
-            --light: #1a1a1a; /* Nero chiaro */
-            --dark: #0d0d0d; /* Nero scuro */
-            --text: #ffffff; /* Testo bianco */
-            --safe-area-inset-top: env(safe-area-inset-top);
-            --safe-area-inset-bottom: env(safe-area-inset-bottom);
-        }
-        
+        /* Reset e stili base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        html {
-            scroll-behavior: smooth;
+        :root {
+            --primary: #d10000;
+            --secondary: #000;
+            --accent: #ffd700;
+            --light: #f5f5f5;
+            --dark: #1a1a1a;
         }
         
         body {
-            background-color: var(--secondary);
-            color: var(--text);
             line-height: 1.6;
+            color: var(--light);
+            background-color: var(--dark);
             overflow-x: hidden;
-            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            padding-top: var(--safe-area-inset-top);
-            padding-bottom: var(--safe-area-inset-bottom);
         }
         
         .container {
-            width: 100%;
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
         }
         
-        /* iOS & Android Optimizations */
-        @supports(padding: max(0px)) {
-            .container {
-                padding-left: max(20px, env(safe-area-inset-left));
-                padding-right: max(20px, env(safe-area-inset-right));
-            }
-        }
-        
-        /* Animazioni di sfondo - Ottimizzate per mobile */
-        .background-elements {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        .bg-element {
-            position: absolute;
-            opacity: 0.05;
-        }
-        
-        .dumbbell, .barbell, .muscle {
-            display: none; /* Disabilitati su mobile per performance */
-        }
-        
-        /* Header Mobile Optimized */
+        /* Header e navigazione */
         header {
-            background-color: rgba(13, 13, 13, 0.95);
-            color: var(--text);
-            padding: 15px 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 2px 20px rgba(209, 0, 0, 0.5);
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
+            top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(212, 175, 55, 0.3);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding-top: calc(15px + var(--safe-area-inset-top));
+            backdrop-filter: blur(10px);
         }
         
-        .header-content {
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 0;
         }
         
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .logo-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 20px;
-            color: var(--secondary);
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5);
-        }
-        
-        .logo-text {
-            font-size: 20px;
-            font-weight: 800;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 2px;
         }
         
-        .logo-text span {
-            color: var(--primary);
+        .logo span {
+            color: var(--accent);
         }
         
-        nav {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 80%;
-            max-width: 300px;
-            height: 100vh;
-            background: var(--dark);
-            z-index: 1001;
-            transition: right 0.3s ease;
-            padding-top: 80px;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-        }
-        
-        nav.active {
-            right: 0;
-        }
-        
-        nav ul {
+        .nav-links {
+            display: flex;
             list-style: none;
-            padding: 0 20px;
         }
         
-        nav li {
-            margin-bottom: 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+        .nav-links li {
+            margin-left: 2rem;
         }
         
-        nav a {
-            display: block;
-            color: var(--text);
+        .nav-links a {
             text-decoration: none;
-            font-weight: 600;
-            padding: 18px 15px;
+            color: var(--light);
+            font-weight: 500;
             transition: all 0.3s;
-            font-size: 18px;
+            position: relative;
+            padding: 5px 0;
         }
         
-        nav a:hover, nav a:active {
-            color: var(--primary);
-            background: rgba(212, 175, 55, 0.1);
-        }
-        
-        .mobile-menu-btn {
-            display: block;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 1002;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .close-menu {
+        .nav-links a::after {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 24px;
-            cursor: pointer;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
         }
         
-        .nav-overlay {
-            position: fixed;
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light);
+            transition: all 0.3s;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--light);
+            margin-top: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            display: none;
-        }
-        
-        .nav-overlay.active {
-            display: block;
-        }
-        
-        /* Hero Section Mobile Optimized */
-        .hero {
-            background: linear-gradient(rgba(13, 13, 13, 0.9), rgba(13, 13, 13, 0.95)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            color: var(--text);
-            padding: 140px 0 80px;
-            text-align: center;
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.9) 100%);
         }
         
         .hero-content {
-            max-width: 100%;
-            margin: 0 auto;
             position: relative;
             z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
-        .hero h1 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-            line-height: 1.2;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(209, 0, 0, 0.7);
         }
         
-        .hero h1 span {
-            color: var(--primary);
+        .hero-content .highlight {
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
         
-        .hero p {
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            opacity: 0.9;
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
         }
         
-        .cta-text {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 30px;
-            color: var(--primary);
-        }
-        
-        .cta-button {
+        .btn {
             display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: var(--secondary);
-            padding: 16px 30px;
-            border-radius: 50px;
+            background: linear-gradient(135deg, var(--primary), #a00000);
+            color: var(--light);
+            padding: 15px 35px;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
-            margin: 10px 0;
-            min-width: 260px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.4s;
             border: none;
             cursor: pointer;
-        }
-        
-        .cta-button:active {
-            transform: scale(0.98);
-        }
-        
-        /* Sections Mobile Optimized */
-        section {
-            padding: 70px 0;
+            box-shadow: 0 5px 15px rgba(209, 0, 0, 0.4);
             position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(209, 0, 0, 0.6);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent), #ccac00);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+            color: var(--dark);
+        }
+        
+        .btn-accent:hover {
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.6);
+        }
+        
+        .motivational-quote {
+            margin-top: 2rem;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--accent);
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+        }
+        
+        /* Sezioni */
+        section {
+            padding: 5rem 0;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
-            position: relative;
+            margin-bottom: 3rem;
         }
         
         .section-title h2 {
-            font-size: 2rem;
-            color: var(--primary);
+            font-size: 2.5rem;
+            color: var(--light);
+            margin-bottom: 1rem;
+            position: relative;
             display: inline-block;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            padding-bottom: 15px;
+            letter-spacing: 2px;
         }
         
-        .section-title h2:after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: var(--accent);
-            margin: 15px auto;
-            border-radius: 2px;
-        }
-        
-        /* Programs Section Mobile Optimized */
-        .programs-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-        }
-        
-        .program-card {
-            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
-            position: relative;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-        
-        .program-card:active {
-            transform: scale(0.98);
-        }
-        
-        .program-card:before {
+        .section-title h2::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-        }
-        
-        .program-icon {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: var(--secondary);
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            position: relative;
-        }
-        
-        .program-content {
-            padding: 25px;
-        }
-        
-        .program-content h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .program-content p {
-            color: #cccccc;
-            margin-bottom: 20px;
-            font-size: 1rem;
-        }
-        
-        .program-button {
-            display: inline-block;
-            background: transparent;
-            color: var(--primary);
-            padding: 12px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: 2px solid var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.9rem;
-            width: 100%;
-            text-align: center;
-        }
-        
-        .program-button:active {
-            background: var(--primary);
-            color: var(--secondary);
-        }
-        
-        /* Transformations Section Mobile Optimized */
-        .transformations {
-            background: linear-gradient(rgba(13, 13, 13, 0.9), rgba(13, 13, 13, 0.9));
-        }
-        
-        .gallery {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-        
-        .gallery-item {
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            height: 280px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .gallery-item:active {
-            transform: scale(0.98);
-        }
-        
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .video-container video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .video-play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: rgba(212, 175, 55, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--secondary);
-            font-size: 20px;
-            z-index: 2;
-            cursor: pointer;
-            border: none;
-        }
-        
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-            color: white;
-            padding: 20px;
-        }
-        
-        .gallery-overlay h3 {
-            color: var(--primary);
-            margin-bottom: 5px;
-            font-size: 1.2rem;
-        }
-        
-        .gallery-overlay p {
-            color: #cccccc;
-            font-size: 0.9rem;
-        }
-        
-        /* Footer Mobile Optimized */
-        footer {
-            background-color: var(--dark);
-            color: var(--text);
-            padding: 50px 0 20px;
-            position: relative;
-        }
-        
-        footer:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column h3 {
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-            position: relative;
-            padding-bottom: 10px;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .footer-column h3:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 40px;
+            width: 100px;
             height: 3px;
-            background: var(--accent);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
         }
         
-        .footer-column p {
-            margin-bottom: 12px;
-            color: #cccccc;
-            font-size: 0.95rem;
+        /* Chi Sono */
+        .about {
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
         
-        .map-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 10px;
-            padding: 10px 15px;
-            border: 1px solid var(--primary);
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-        }
-        
-        .map-link:active {
-            background: var(--primary);
-            color: var(--secondary);
-        }
-        
-        .social-links {
+        .about-content {
             display: flex;
-            gap: 12px;
-            margin-top: 20px;
+            align-items: center;
+            gap: 3rem;
         }
         
-        .social-link {
+        .about-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(209, 0, 0, 0.3);
+            border: 2px solid var(--primary);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+            line-height: 1.8;
+        }
+        
+        /* Servizi */
+        .services {
+            background-color: var(--dark);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: all 0.4s;
+            border: 1px solid rgba(209, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(209, 0, 0, 0.3);
+        }
+        
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .service-content p {
+            color: #ccc;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Trasformazioni */
+        .transformations {
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .transformations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .transformation-card {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: all 0.4s;
+            border: 1px solid rgba(209, 0, 0, 0.3);
+        }
+        
+        .transformation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(209, 0, 0, 0.3);
+        }
+        
+        .transformation-img {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .transformation-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .transformation-card:hover .transformation-img img {
+            transform: scale(1.05);
+        }
+        
+        .transformation-content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .transformation-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+        
+        .transformation-content p {
+            color: #ccc;
+            font-style: italic;
+        }
+        
+        /* Contatti */
+        .contact {
+            background-color: var(--dark);
+        }
+        
+        .contact-content {
+            display: flex;
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-form {
+            flex: 1;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .info-icon {
+            background: linear-gradient(135deg, var(--primary), #a00000);
+            color: var(--light);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 44px;
-            height: 44px;
-            background-color: rgba(212, 175, 55, 0.1);
-            border-radius: 50%;
-            color: var(--primary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            font-size: 1.1rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(209, 0, 0, 0.4);
         }
         
-        .social-link:active {
-            background-color: var(--primary);
-            color: var(--secondary);
-            transform: scale(0.95);
+        .info-text h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
         }
         
-        .copyright {
-            text-align: center;
-            padding-top: 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #cccccc;
-            font-size: 0.85rem;
+        .info-text p {
+            color: #ccc;
         }
         
-        /* WhatsApp Float Button */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            color: var(--light);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 10px rgba(209, 0, 0, 0.3);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* WhatsApp Float */
         .whatsapp-float {
             position: fixed;
             bottom: 25px;
             right: 25px;
             width: 60px;
             height: 60px;
-            background: #25D366;
-            color: white;
+            background-color: #25D366;
+            color: #FFF;
             border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.5);
+            z-index: 100;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
-            z-index: 999;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.7);
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, #000, #1a1a1a);
+            color: var(--light);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 3px solid var(--primary);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            display: flex;
+            margin: 2rem 0;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), #a00000);
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            color: var(--light);
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(209, 0, 0, 0.4);
         }
         
-        .whatsapp-float:active {
-            transform: scale(0.9);
+        .social-links a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(209, 0, 0, 0.6);
         }
         
-        /* Tablet Styles */
-        @media (min-width: 768px) {
-            .hero h1 {
-                font-size: 2.8rem;
+        .social-links a.whatsapp {
+            background: linear-gradient(135deg, #25D366, #1DA851);
+        }
+        
+        .social-links a.instagram {
+            background: linear-gradient(135deg, #E1306C, #C13584);
+        }
+        
+        .social-links a.facebook {
+            background: linear-gradient(135deg, #3b5998, #2d4373);
+        }
+        
+        .social-links a.tiktok {
+            background: linear-gradient(135deg, #000000, #333333);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content, .contact-content {
+                flex-direction: column;
             }
             
-            .programs-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .gallery {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
+            .hero-content h1 {
+                font-size: 2.5rem;
             }
         }
         
-        /* Desktop Styles */
-        @media (min-width: 1024px) {
-            .mobile-menu-btn {
-                display: none;
-            }
-            
-            nav {
-                position: static;
-                width: auto;
-                height: auto;
-                background: transparent;
-                padding: 0;
-                box-shadow: none;
-            }
-            
-            nav ul {
+        @media (max-width: 768px) {
+            .hamburger {
                 display: flex;
-                padding: 0;
             }
             
-            nav li {
-                margin-bottom: 0;
-                border-bottom: none;
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: left 0.3s;
+                backdrop-filter: blur(10px);
             }
             
-            nav a {
-                padding: 10px 15px;
-                font-size: 16px;
+            .nav-links.active {
+                left: 0;
             }
             
-            .hero h1 {
-                font-size: 3.5rem;
+            .nav-links li {
+                margin: 1.5rem 0;
             }
             
-            .programs-grid {
-                grid-template-columns: repeat(3, 1fr);
+            .hero-content h1 {
+                font-size: 2rem;
             }
             
-            .gallery {
-                grid-template-columns: repeat(4, 1fr);
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
             }
             
-            .footer-content {
-                grid-template-columns: repeat(3, 1fr);
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
             }
-        }
-        
-        /* High DPI Screens */
-        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-            .hero {
-                background-image: linear-gradient(rgba(13, 13, 13, 0.9), rgba(13, 13, 13, 0.95)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80');
+            
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
             }
         }
     </style>
 </head>
 <body>
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/393471250632?text=Ciao%20Enzo,%20vorrei%20prenotare%20una%20consulenza%20gratuita!" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <!-- Header -->
     <header>
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">E</div>
-                    <div class="logo-text">ENZO<span>ROB</span>PT</div>
+            <nav class="navbar">
+                <div class="logo">ENZO<span>ROB</span> PT</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Chi Sono</a></li>
+                    <li><a href="#services">Servizi</a></li>
+                    <li><a href="#transformations">Trasformazioni</a></li>
+                    <li><a href="#contact">Contatti</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
-                <button class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <nav id="main-nav">
-                    <button class="close-menu">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#programs">Programmi</a></li>
-                        <li><a href="#transformations">Trasformazioni</a></li>
-                        <li><a href="#contact">Contatti</a></li>
-                    </ul>
-                </nav>
-                <div class="nav-overlay" id="nav-overlay"></div>
-            </div>
+            </nav>
         </div>
     </header>
 
@@ -725,234 +702,256 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <h1>Trasforma il tuo corpo, <span>potenzia</span> la tua vita</h1>
-                <p>Da anni aiuto persone come te a migliorare fisico, salute e stile di vita attraverso percorsi personalizzati e mirati ai tuoi obiettivi.</p>
-                <p class="cta-text">Cosa aspetti? Inizia oggi il tuo percorso di trasformazione!</p>
-                <a href="https://wa.me/3471250632" class="cta-button" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Contattami su WhatsApp
-                </a>
+                <h1>TRASFORMA IL TUO <span class="highlight">CORPO</span>, POTENZIA LA TUA <span class="highlight">MENTE</span></h1>
+                <p>Scopri il programma di allenamento personalizzato che ti porterà a superare i tuoi limiti e raggiungere la forma fisica che hai sempre desiderato. Con ENZOROB PT, il cambiamento è garantito!</p>
+                <a href="https://wa.me/393471250632?text=Ciao%20Enzo,%20vorrei%20prenotare%20una%20consulenza%20gratuita!" class="btn" target="_blank">Prenota una consulenza gratuita</a>
+                <div class="motivational-quote">
+                    "Il dolore che senti oggi sarà la forza che sentirai domani. Non arrenderti!"
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Programs Section -->
-    <section id="programs">
+    <!-- Chi Sono -->
+    <section class="about" id="about">
         <div class="container">
             <div class="section-title">
-                <h2>I Miei Programmi</h2>
+                <h2>Chi Sono</h2>
             </div>
-            <div class="programs-grid">
-                <div class="program-card">
-                    <div class="program-icon">
-                        <i class="fas fa-laptop"></i>
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Enzo Rob PT">
+                </div>
+                <div class="about-text">
+                    <h3>Enzo Rob - Personal Trainer Certificato</h3>
+                    <p>Ciao, sono Enzo Rob, personal trainer professionista con oltre 10 anni di esperienza nel settore del fitness e del benessere. La mia missione è aiutare le persone a raggiungere i loro obiettivi fisici e mentali attraverso programmi di allenamento personalizzati e un approccio olistico alla salute.</p>
+                    <p>Mi specializzo in allenamenti funzionali, bodybuilding, perdita di peso e preparazione atletica. Credo fermamente che il fitness non sia solo una questione di aspetto fisico, ma uno strumento per migliorare la qualità della vita in tutti i suoi aspetti.</p>
+                    <p>Il mio motto è: "Non esistono limiti, solo obiettivi da superare". Lavoreremo insieme per superare le tue barriere e raggiungere risultati che non pensavi possibili.</p>
+                    <a href="#services" class="btn btn-accent">Scopri i miei servizi</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servizi -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>I Miei Servizi</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1534367507877-0edd93bd013b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Personal Training">
                     </div>
-                    <div class="program-content">
-                        <h3>Coaching Online</h3>
-                        <p>Programma di allenamento e nutrizione completamente personalizzato, con monitoraggio costante e supporto diretto via chat.</p>
-                        <a href="https://wa.me/3471250632" class="program-button" target="_blank">Scopri di più</a>
+                    <div class="service-content">
+                        <h3>Personal Training 1-on-1</h3>
+                        <p>Sessioni di allenamento individuali completamente personalizzate in base ai tuoi obiettivi, livello di forma fisica e preferenze. Massima attenzione alla tecnica e ai risultati.</p>
+                        <a href="https://wa.me/393471250632?text=Ciao%20Enzo,%20sono%20interessato%20al%20Personal%20Training%201-on-1!" class="btn" target="_blank">Richiedi informazioni</a>
                     </div>
                 </div>
-                <div class="program-card">
-                    <div class="program-icon">
-                        <i class="fas fa-dumbbell"></i>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Programmi Online">
                     </div>
-                    <div class="program-content">
-                        <h3>One to One</h3>
-                        <p>Allenamento personalizzato in palestra con assistenza diretta. Massima attenzione alla tecnica e ai tuoi progressi.</p>
-                        <a href="https://wa.me/3471250632" class="program-button" target="_blank">Scopri di più</a>
+                    <div class="service-content">
+                        <h3>Programmi di Allenamento Online</h3>
+                        <p>Piani di allenamento personalizzati da seguire a casa o in palestra, con supporto costante via chat e video chiamate. Perfetto per chi ha orari flessibili.</p>
+                        <a href="https://wa.me/393471250632?text=Ciao%20Enzo,%20sono%20interessato%20ai%20Programmi%20di%20Allenamento%20Online!" class="btn" target="_blank">Richiedi informazioni</a>
                     </div>
                 </div>
-                <div class="program-card">
-                    <div class="program-icon">
-                        <i class="fas fa-clipboard-list"></i>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Consulenza Nutrizionale">
                     </div>
-                    <div class="program-content">
-                        <h3>Programma Personalizzato</h3>
-                        <p>Creiamo insieme il piano di allenamento perfetto per le tue esigenze, obiettivi e stile di vita.</p>
-                        <a href="https://wa.me/3471250632" class="program-button" target="_blank">Scopri di più</a>
+                    <div class="service-content">
+                        <h3>Consulenza Nutrizionale</h3>
+                        <p>Piani alimentari personalizzati che si integrano perfettamente con il tuo programma di allenamento. Massimizza i risultati con l'alimentazione giusta.</p>
+                        <a href="https://wa.me/393471250632?text=Ciao%20Enzo,%20sono%20interessato%20alla%20Consulenza%20Nutrizionale!" class="btn" target="_blank">Richiedi informazioni</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Transformations Section -->
+    <!-- Trasformazioni -->
     <section class="transformations" id="transformations">
         <div class="container">
             <div class="section-title">
                 <h2>Trasformazioni</h2>
             </div>
-            <div class="gallery">
-                <div class="gallery-item">
-                    <div class="video-container">
-                        <video poster="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" muted>
-                            <source src="" type="video/mp4">
-                            Il tuo browser non supporta il tag video.
-                        </video>
-                        <button class="video-play-btn">
-                            <i class="fas fa-play"></i>
-                        </button>
+            <div class="transformations-grid">
+                <div class="transformation-card">
+                    <div class="transformation-img">
+                        <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Trasformazione 1">
                     </div>
-                    <div class="gallery-overlay">
-                        <h3>Giuseppe A. - 8 mesi</h3>
-                        <p>Trasformazione completa</p>
+                    <div class="transformation-content">
+                        <h3>Marco - 6 Mesi di Allenamento</h3>
+                        <p>"Con Enzo ho perso 15kg e guadagnato massa muscolare. Mai stato così in forma!"</p>
                     </div>
                 </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Trasformazione Giuseppe A.">
-                    <div class="gallery-overlay">
-                        <h3>Giuseppe A. - Prima/Dopo</h3>
-                        <p>8 mesi di allenamento</p>
+                <div class="transformation-card">
+                    <div class="transformation-img">
+                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Trasformazione 2">
+                    </div>
+                    <div class="transformation-content">
+                        <h3>Laura - 4 Mesi di Trasformazione</h3>
+                        <p>"Grazie al programma di Enzo ho raggiunto il mio peso forma e una nuova fiducia in me stessa."</p>
                     </div>
                 </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1534367507877-0edd93bd013b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Trasformazione cliente">
-                    <div class="gallery-overlay">
-                        <h3>Laura - 4 mesi</h3>
-                        <p>-12kg, + definizione</p>
+                <div class="transformation-card">
+                    <div class="transformation-img">
+                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Trasformazione 3">
+                    </div>
+                    <div class="transformation-content">
+                        <h3>Simone - Preparazione Gara</h3>
+                        <p>"Enzo mi ha preparato per la mia prima competizione. Risultati oltre ogni aspettativa!"</p>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1549060279-7e168fce7090?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Trasformazione cliente">
-                    <div class="gallery-overlay">
-                        <h3>Chiara - 5 mesi</h3>
-                        <p>-15kg, + tonicità</p>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="https://wa.me/393471250632?text=Ciao%20Enzo,%20voglio%20anche%20io%20una%20trasformazione%20come%20i%20tuoi%20clienti!" class="btn btn-accent" target="_blank">Voglio Anche Io Una Trasformazione!</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contatti -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contattami</h2>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-text">
+                            <h3>Dove mi trovo</h3>
+                            <p>Palestra WIP 2.0<br>Via Indipendenza, 23<br>80026 Casoria NA</p>
+                        </div>
                     </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-text">
+                            <h3>Telefono / WhatsApp</h3>
+                            <p>+39 347 125 0632</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-text">
+                            <h3>Email</h3>
+                            <p>info@enzorobpt.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-text">
+                            <h3>Orari</h3>
+                            <p>Lun-Ven: 6:00 - 22:00<br>Sab: 8:00 - 18:00<br>Dom: Chiuso</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nome e Cognome" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" placeholder="Telefono">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Messaggio" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Invia Messaggio</button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact">
+    <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-column">
-                    <h3>ENZOROBPT</h3>
-                    <p>Personal Trainer certificato con anni di esperienza nel settore del fitness e del bodybuilding.</p>
-                    <div class="social-links">
-                        <a href="https://instagram.com/ENZOROBPT" class="social-link" target="_blank">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://wa.me/3471250632" class="social-link" target="_blank">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                    </div>
+                <div class="logo">ENZO<span>ROB</span> PT</div>
+                <div class="social-links">
+                    <a href="https://wa.me/393471250632" class="whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/enzorob_pt" class="instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/enzorobpt" class="facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@enzorobpt" class="tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
                 </div>
-                <div class="footer-column">
-                    <h3>Contatti</h3>
-                    <p><i class="fas fa-phone"></i> 347 125 0632</p>
-                    <p><i class="fas fa-envelope"></i> info@enzorobpt.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> VIA INDIPENDENZA 23, CASORIA 80026</p>
-                    <a href="https://www.google.com/maps/search/VIA+INDIPENDENZA+23,+CASORIA+80026" class="map-link" target="_blank">
-                        <i class="fas fa-map-marked-alt"></i> Come raggiungermi
-                    </a>
+                <div class="copyright">
+                    &copy; 2023 ENZOROB PT. Tutti i diritti riservati. | Trasforma il tuo corpo, potenzia la tua mente
                 </div>
-                <div class="footer-column">
-                    <h3>Orari</h3>
-                    <p>Lun - Ven: 8:00 - 20:00</p>
-                    <p>Sabato: 9:00 - 14:00</p>
-                    <p>Domenica: Chiuso</p>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2023 ENZOROBPT. Tutti i diritti riservati.</p>
             </div>
         </div>
     </footer>
 
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/3471250632" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
     <script>
-        // Mobile Navigation
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const closeMenuBtn = document.querySelector('.close-menu');
-            const nav = document.getElementById('main-nav');
-            const navOverlay = document.getElementById('nav-overlay');
-            const navLinks = document.querySelectorAll('nav a');
-            
-            function openMenu() {
-                nav.classList.add('active');
-                navOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-            
-            function closeMenu() {
-                nav.classList.remove('active');
-                navOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-            
-            mobileMenuBtn.addEventListener('click', openMenu);
-            closeMenuBtn.addEventListener('click', closeMenu);
-            navOverlay.addEventListener('click', closeMenu);
-            
-            navLinks.forEach(link => {
-                link.addEventListener('click', closeMenu);
+        // Menu hamburger per mobile
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+        
+        // Chiudi menu al click su un link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
             });
-            
-            // Video play functionality
-            const videoPlayBtns = document.querySelectorAll('.video-play-btn');
-            videoPlayBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const videoContainer = this.closest('.video-container');
-                    const video = videoContainer.querySelector('video');
-                    
-                    if (video.paused) {
-                        video.play();
-                        this.innerHTML = '<i class="fas fa-pause"></i>';
-                    } else {
-                        video.pause();
-                        this.innerHTML = '<i class="fas fa-play"></i>';
-                    }
-                });
-            });
-            
-            // Prevent horizontal scroll on mobile
-            document.addEventListener('touchmove', function(e) {
-                if (e.touches.length > 1) {
-                    e.preventDefault();
-                }
-            }, { passive: false });
-            
-            // Improve performance on scroll
-            let ticking = false;
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    requestAnimationFrame(function() {
-                        // Any scroll-based animations here
-                        ticking = false;
+        });
+        
+        // Smooth scroll per i link di navigazione
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
                     });
-                    ticking = true;
                 }
             });
         });
         
-        // Prevent zoom on double tap (iOS)
-        document.addEventListener('touchstart', function(e) {
-            if (e.touches.length > 1) {
-                e.preventDefault();
-            }
+        // Gestione invio form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Grazie per il tuo messaggio! Ti ricontatterò al più presto.');
+            this.reset();
         });
         
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function(e) {
-            const now = (new Date()).getTime();
-            if (now - lastTouchEnd <= 300) {
-                e.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
+        // Aggiungi effetto di illuminazione ai pulsanti al passaggio del mouse
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 8px 20px rgba(209, 0, 0, 0.6)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
     </script>
 </body>
 </html>
